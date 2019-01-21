@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "me.mattak.cathandapp"
+        applicationId "me.mattak.cathand_android_runner"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
