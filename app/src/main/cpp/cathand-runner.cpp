@@ -10,7 +10,7 @@
 
 struct timeevent {
     int epoch_sec;
-    int epoch_nsec;
+    int epoch_usec;
 
     __u16 type;
     __u16 code;
@@ -90,7 +90,7 @@ std::vector<timeevent> input_tsv(const char *filename) {
         }
 
         e.epoch_sec = atoi(values[0].c_str());
-        e.epoch_nsec = atoi(values[1].c_str());
+        e.epoch_usec = atoi(values[1].c_str());
 
         events.push_back(e);
     }
@@ -136,10 +136,10 @@ int main(int argc, char **argv) {
     struct timeevent previous_event = sequence[0];
 
     for (auto event : sequence) {
-        printf("%d.%06d\t%04x\t%04x\t%08x\n", event.epoch_sec, event.epoch_nsec, event.type, event.code, event.value);
+        printf("%d.%06d\t%04x\t%04x\t%08x\n", event.epoch_sec, event.epoch_usec, event.type, event.code, event.value);
 
-        auto now = event.epoch_sec * 1000000 + event.epoch_nsec;
-        auto prev = previous_event.epoch_sec * 1000000 + previous_event.epoch_nsec;
+        auto now = event.epoch_sec * 1000000 + event.epoch_usec;
+        auto prev = previous_event.epoch_sec * 1000000 + previous_event.epoch_usec;
         auto diff = now - prev;
 
         if (diff > 0) usleep(diff);
