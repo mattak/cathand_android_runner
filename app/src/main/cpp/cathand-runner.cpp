@@ -119,12 +119,6 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    int fdw = open("/sdcard/tmp.dat", O_WRONLY | O_CLOEXEC | O_CREAT);
-    if (fdw < 0) {
-        fprintf(stderr, "could not open %s, %s\n", "/sdcard/tmp.dat", strerror(errno));
-        return 1;
-    }
-
     if (ioctl(fd, EVIOCGVERSION, &version)) {
         fprintf(stderr, "could not get driver version for %s, %s\n", argv[optind], strerror(errno));
         return 1;
@@ -155,7 +149,6 @@ int main(int argc, char **argv) {
     }
 
     close(fd);
-    close(fdw);
 
     return 0;
 }
